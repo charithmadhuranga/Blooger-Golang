@@ -1,4 +1,4 @@
-{{template "base.html" .}}
+{{define "content"}}
 <div class="card">
     <div class="card-body">
         <h3>{{.Post.Title}}</h3>
@@ -6,3 +6,4 @@
         <a href="/" class="btn btn-secondary">Back</a>
     </div>
 </div>
+{{end}}

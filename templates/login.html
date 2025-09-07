@@ -1,4 +1,4 @@
-{{template "base.html" .}}
+{{define "content"}}
 <h2>Login</h2>
 <form action="/login" method="post">
     <div class="mb-3">
@@ -11,3 +11,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+{{end}}

@@ -1,4 +1,4 @@
-{{template "base.html" .}}
+{{define "content"}}
 <h2>Edit Post</h2>
 <form action="/update/{{.Post.ID}}" method="post">
     <div class="mb-3">
@@ -12,3 +12,4 @@
     <button type="submit" class="btn btn-warning">Update</button>
     <a href="/delete/{{.Post.ID}}" class="btn btn-danger">Delete</a>
 </form>
+{{end}}
