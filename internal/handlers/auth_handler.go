@@ -42,18 +42,12 @@ func Login(c *fiber.Ctx) error {
 		return c.Status(401).SendString("Invalid credentials")
 	}
 
-	// Create JWT
-	token, err := utils.GenerateJWT(user.Username)
-	if err != nil {
-		return c.Status(500).SendString("Error generating token")
-	}
+	token, _ := utils.GenerateJWT(user.Username)
 
-	// Store token in HTTP-only cookie for web
 	c.Cookie(&fiber.Cookie{
 		Name:     "token",
 		Value:    token,
 		HTTPOnly: true,
-		Secure:   false, // set true in production with HTTPS
 	})
 
 	return c.Redirect("/")

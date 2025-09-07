@@ -10,14 +10,14 @@ import (
 )
 
 func Register(app *fiber.App) {
-	// Public Auth routes
+	// Auth
 	app.Get("/register", handlers.RegisterForm)
 	app.Post("/register", handlers.Register)
 	app.Get("/login", handlers.LoginForm)
 	app.Post("/login", handlers.Login)
 	app.Get("/logout", handlers.Logout)
 
-	// Protected Web routes
+	// Web routes (JWT protected)
 	app.Get("/", middlewares.JWTAuth(), handlers.ListPosts)
 	app.Get("/post/:id", middlewares.JWTAuth(), handlers.ShowPost)
 	app.Get("/new", middlewares.JWTAuth(), handlers.NewPostForm)
@@ -26,14 +26,14 @@ func Register(app *fiber.App) {
 	app.Post("/update/:id", middlewares.JWTAuth(), handlers.UpdatePost)
 	app.Get("/delete/:id", middlewares.JWTAuth(), handlers.DeletePost)
 
-	// API routes (JWT required)
-	api := app.Group("/api", middlewares.JWTAuth)
+	// API routes
+	api := app.Group("/api", middlewares.JWTAuth())
 	api.Get("/posts", handlers.GetPosts)
 	api.Get("/posts/:id", handlers.GetPost)
-	api.Post("/posts", handlers.CreatePost)
-	api.Put("/posts/:id", handlers.UpdatePost)
-	api.Delete("/posts/:id", handlers.DeletePost)
+	api.Post("/posts", handlers.CreatePostAPI)
+	api.Put("/posts/:id", handlers.UpdatePostAPI)
+	api.Delete("/posts/:id", handlers.DeletePostAPI)
 
-	// Swagger docs
+	// Swagger
 	app.Get("/swagger/*", swagger.HandlerDefault)
 }

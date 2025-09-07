@@ -15,6 +15,10 @@ import (
 // @description Simple blogging platform API with Fiber, GORM, and SQLite.
 // @host localhost:3000
 // @BasePath /
+// @schemes http
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 func main() {
 	// Initialize database
 	config.InitDB()
