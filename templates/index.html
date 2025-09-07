@@ -1,0 +1,13 @@
+{{template "base.html" .}}
+<h1 class="mb-4">All Posts</h1>
+{{range .Posts}}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{.Title}}</h5>
+        <p class="card-text">{{.Content}}</p>
+        <a href="/post/{{.ID}}" class="btn btn-sm btn-outline-secondary">Read More</a>
+    </div>
+</div>
+{{else}}
+<p>No posts yet.</p>
+{{end}}
