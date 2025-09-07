@@ -26,8 +26,8 @@ func main() {
 	// Load HTML templates with Fiber
 	engine := html.New("./templates", ".html")
 	app := fiber.New(fiber.Config{
-		Views:       engine,
-		ViewsLayout: "base",
+		Views: engine,
+		ViewsLayout: "base.html",
 	})
 
 	// Static files

@@ -11,7 +11,7 @@ import (
 func ListPosts(c *fiber.Ctx) error {
 	var posts []models.Post
 	config.DB.Order("created_at desc").Find(&posts)
-	return c.Render("index", fiber.Map{"Title": "Home", "Posts": posts})
+	return c.Render("index", fiber.Map{"Title": "Home", "Posts": posts, "User": c.Locals("user")})
 }
 
 func ShowPost(c *fiber.Ctx) error {
@@ -20,11 +20,11 @@ func ShowPost(c *fiber.Ctx) error {
 	if err := config.DB.First(&post, id).Error; err != nil {
 		return c.Status(404).SendString("Post not found")
 	}
-	return c.Render("show", fiber.Map{"Post": post})
+	return c.Render("show", fiber.Map{"Post": post, "User": c.Locals("user")})
 }
 
 func NewPostForm(c *fiber.Ctx) error {
-	return c.Render("form", fiber.Map{"Title": "New Post"})
+	return c.Render("form", fiber.Map{"Title": "New Post", "User": c.Locals("user")})
 }
 
 func CreatePost(c *fiber.Ctx) error {
@@ -39,7 +39,7 @@ func EditPostForm(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	var post models.Post
 	config.DB.First(&post, id)
-	return c.Render("edit", fiber.Map{"Post": post})
+	return c.Render("edit", fiber.Map{"Post": post, "User": c.Locals("user")})
 }
 
 func UpdatePost(c *fiber.Ctx) error {
